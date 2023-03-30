@@ -1,11 +1,9 @@
 import smtplib
 import os
-from decouple import config
 
-#password = os.environ.get('EMAIL_PASSWORD')
-password = config('PASSWORD')
-FROM = config('FROM')
-TO = config('TO')
+password = os.environ.get('PASSWORD')
+FROM = os.environ.get('FROM')
+TO = os.environ.get('TO')
 
 def send_email(mensaje="Prueba"):
     message = mensaje
