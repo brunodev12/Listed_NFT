@@ -1,9 +1,9 @@
 import requests
 import json
-from decouple import config
+import os
 
-api_key=config('API_KEY')
-collection=config('COLLECTION')
+api_key=os.environ.get('API_KEY')
+collection=os.environ.get('COLLECTION')
 
 url = f"{api_key}/byCollection?type=LIST&collection=POLYGON%3A{collection}&size=50&sort=LATEST_FIRST"
 
