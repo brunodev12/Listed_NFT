@@ -72,11 +72,6 @@ jobs:
           echo "## Commiting results" >> $GITHUB_STEP_SUMMARY
           echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
       
-      - name: Checkout remote branch
-        uses: actions/checkout@v2
-        with:
-          ref: remote
-      
       - name: "Update commit"
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
