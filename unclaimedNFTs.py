@@ -1,8 +1,7 @@
 import requests
 import json
-from decouple import config
 
-url = config('PRIVATE_URL')
+url = os.environ.get('PRIVATE_URL')
 
 data = requests.get(url)
 lista = data.json()['unclaimedNFTs']
