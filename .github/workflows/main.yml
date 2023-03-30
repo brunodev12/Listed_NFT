@@ -1,4 +1,4 @@
-name: "Scraping listed NFTs"
+name: "Get listed NFTs"
 on:
   schedule:
   - cron: "*/30 * * * *"
@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: "Check out the repo"
         uses: "actions/checkout@v3"
+        with:
+          ref: remote
       
       - name: Set up Python 3.10
         uses: actions/setup-python@v4
