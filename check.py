@@ -1,10 +1,10 @@
 import requests
 import json
+import os
 from mail import send_email
-from decouple import config
 
-api_key=config('API_KEY')
-collection=config('COLLECTION')
+api_key=os.environ.get('API_KEY')
+collection=os.environ.get('COLLECTION')
 
 unClaimed = None
 listed = None
