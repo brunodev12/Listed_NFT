@@ -1,5 +1,6 @@
 import requests
 import json
+import os
 
 url = os.environ.get('PRIVATE_URL')
 
