@@ -1,0 +1,84 @@
+name: "Scraping listed NFTs"
+on:
+  schedule:
+  - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  request:
+    runs-on: ubuntu-22.04
+    permissions: write-all
+    steps:
+      - name: "Check out the repo"
+        uses: "actions/checkout@v3"
+      
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Install pip
+        run: |
+          python -m ensurepip --upgrade
+      
+      - name: Install dependencies with pip
+        run: |
+          pip install -r requirements.txt
+      
+      - name: Getting Listed NFTs
+        env:
+            API_KEY: ${{ secrets.API_KEY }}
+            COLLECTION: ${{ secrets.COLLECTION }}
+        run: |
+          python3 listedNfts.py
+          echo "## Getting listed NFTs" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Getting Unclaimed NFTs
+        env:
+            PRIVATE_URL: ${{ secrets.PRIVATE_URL }}
+        run: |
+          python3 unclaimedNFTs.py
+          echo "## Getting unclaimed NFTs" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Checking
+        env:
+            API_KEY: ${{ secrets.API_KEY }}
+            COLLECTION: ${{ secrets.COLLECTION }}
+            PASSWORD: ${{ secrets.PASSWORD }}
+            FROM: ${{ secrets.FROM }}
+            TO: ${{ secrets.TO }}
+        run: |
+          python3 check.py
+          echo "## Getting unclaimed NFTs listed" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Get current date
+        id: date
+        run: | 
+          echo "JOB_DATE=$(date +'%Y-%m-%d %H:%Mhs')" >> $GITHUB_ENV
+          echo "## Getting job date and hour" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+      
+      - name : "Ensure trusted environment"
+        run :  git config --global --add safe.directory /__w/Listed_NFT/Listed_NFT
+      
+      - name: "Add change name summary"
+        run: |
+          echo "## Commiting results" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+      
+      - name: Checkout remote branch
+        uses: actions/checkout@v2
+        with:
+          ref: remote
+      
+      - name: "Update commit"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "scrap: ${{ env.JOB_DATE }}"
+          #commit_options: "--amend"
+          push_options: "--force"
+          skip_fetch: true
