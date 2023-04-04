@@ -37,18 +37,11 @@ jobs:
           echo "## Getting listed NFTs" >> $GITHUB_STEP_SUMMARY
           echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
       
-      - name: Getting Unclaimed NFTs
-        env:
-            PRIVATE_URL: ${{ secrets.PRIVATE_URL }}
-        run: |
-          python3 unclaimedNFTs.py
-          echo "## Getting unclaimed NFTs" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
-      
       - name: Checking
         env:
             API_KEY: ${{ secrets.API_KEY }}
             COLLECTION: ${{ secrets.COLLECTION }}
+            PRIVATE_URL: ${{ secrets.PRIVATE_URL }}
             PASSWORD: ${{ secrets.PASSWORD }}
             FROM: ${{ secrets.FROM }}
             TO: ${{ secrets.TO }}
