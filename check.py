@@ -2,6 +2,7 @@ import requests
 import json
 import os
 from mail import send_email
+from unclaimedNFTs import un_claimed_NFTs
 
 api_key=os.environ.get('API_KEY')
 collection=os.environ.get('COLLECTION')
@@ -48,4 +49,5 @@ for i in listed:
 
 if len(unClaimed_listed)>0:
     send_email(unClaimed_listed)
+    un_claimed_NFTs()
 
