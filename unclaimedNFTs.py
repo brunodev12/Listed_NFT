@@ -4,9 +4,12 @@ import os
 
 url = os.environ.get('PRIVATE_URL')
 
-data = requests.get(url)
-lista = data.json()['unclaimedNFTs']
+try:
+    data = requests.get(url)
+    lista = data.json()['unclaimedNFTs']
 
+    with open("unClaimedNft.json", "w") as jsonfile:
+        json.dump(lista, jsonfile)
 
-with open("unClaimedNft.json", "w") as jsonfile:
-    json.dump(lista, jsonfile)
+except KeyError:
+    print("There are no updates on unclaimed NFTs")
