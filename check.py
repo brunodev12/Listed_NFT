@@ -17,14 +17,18 @@ def doubleCheck(_tokenId):
 
     _headers = {
     "accept": "application/json"
-}
+    }
 
     r = requests.get(url, headers=_headers)
 
     data = r.json()
     if len(data['activities'])>0:
-        return data['activities'][0]['@type'] == 'LIST'
-    
+        if data['activities'][0]['@type'] == 'LIST':
+            coin = data['activities'][0]['take']['type']['@type']
+            coin_name = 'WETH' if coin=='ERC20' else 'MATIC'
+            value = float(data['activities'][0]['take']['value'])
+            if (coin_name=='MATIC' and value<37) or (coin_name=='WETH' and value <0.023):
+                return True
     return False
 
 with open("unClaimedNft.json") as jsonfile_1:
@@ -42,9 +46,8 @@ for i in unClaimed:
 for i in listed:
     if (i['tokenId'] in unClaimed_list):
         print(i)
-        if doubleCheck(i['tokenId']):
-            if (i['symbol']=='WETH' and i['price']<0.023) or (i['symbol']=='MATIC' and i['price']<37) or (i['symbol']=='OTHER'):
-                unClaimed_listed.append(i)
+        if doubleCheck(i['tokenId']) or (i['symbol']=='OTHER'):
+            unClaimed_listed.append(i)
             
 
 if len(unClaimed_listed)>0:
