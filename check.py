@@ -7,8 +7,6 @@ from unclaimedNFTs import un_claimed_NFTs
 api_key=os.environ.get('API_KEY')
 collection=os.environ.get('COLLECTION')
 
-unClaimed = None
-listed = None
 unClaimed_listed = []
 
 def doubleCheck(_tokenId):
