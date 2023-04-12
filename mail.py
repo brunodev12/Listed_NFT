@@ -5,9 +5,9 @@ password = os.environ.get('PASSWORD')
 FROM = os.environ.get('FROM')
 TO = os.environ.get('TO')
 
-def send_email(mensaje="Prueba"):
-    message = mensaje
-    subject = 'Unclaimed NFTs found'
+def send_email(_message= "Prueba", _subject='Test'):
+    message = _message
+    subject = _subject
 
     message = 'Subject: {}\n\n{}'.format(subject, message)
 
