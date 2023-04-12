@@ -50,23 +50,23 @@ jobs:
           echo "## Getting unclaimed NFTs listed" >> $GITHUB_STEP_SUMMARY
           echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
           
-      - name: Buying
-        env:
-            COLLECTION: ${{ secrets.COLLECTION }}
-            PASSWORD: ${{ secrets.PASSWORD }}
-            FROM: ${{ secrets.FROM }}
-            TO: ${{ secrets.TO }}
-            POLYGON_RPC: ${{ secrets.POLYGON_RPC }}
-            PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
-            ADDRESS: ${{ secrets.ADDRESS }}
-            CONTRACT_ADDRESS: ${{ secrets.CONTRACT_ADDRESS }}
-            WETH_CONTRACT_ADDRESS: ${{ secrets.WETH_CONTRACT_ADDRESS }}
-            API_KEY2: ${{ secrets.API_KEY2 }}
-            API_KEY3: ${{ secrets.API_KEY3 }}
-        run: |
-          python3 buy.py
-          echo "## Buying unclaimed NFTs listed" >> $GITHUB_STEP_SUMMARY
-          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+#      - name: Buying
+#        env:
+#            COLLECTION: ${{ secrets.COLLECTION }}
+#            PASSWORD: ${{ secrets.PASSWORD }}
+#            FROM: ${{ secrets.FROM }}
+#            TO: ${{ secrets.TO }}
+#            POLYGON_RPC: ${{ secrets.POLYGON_RPC }}
+#            PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+#            ADDRESS: ${{ secrets.ADDRESS }}
+#            CONTRACT_ADDRESS: ${{ secrets.CONTRACT_ADDRESS }}
+#            WETH_CONTRACT_ADDRESS: ${{ secrets.WETH_CONTRACT_ADDRESS }}
+#            API_KEY2: ${{ secrets.API_KEY2 }}
+#            API_KEY3: ${{ secrets.API_KEY3 }}
+#        run: |
+#          python3 buy.py
+#          echo "## Buying unclaimed NFTs listed" >> $GITHUB_STEP_SUMMARY
+#          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
       
       - name: Get current date
         id: date
