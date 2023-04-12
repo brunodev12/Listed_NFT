@@ -1,8 +1,8 @@
 import requests
-from decouple import config
+import os
 
-api_key = config('API_KEY2')
-collection = config('COLLECTION')
+api_key = os.environ.get('API_KEY2')
+collection = os.environ.get('COLLECTION')
 
 def get_id(token_id):
 
