@@ -1,5 +1,5 @@
 from web3 import Web3
-from decouple import config
+import os
 import json
 from dateutil.parser import parse
 from getId import get_id
@@ -7,14 +7,14 @@ from getSignature import get_signature
 from wethBalance import get_WETH_balance
 from mail import send_email
 
-polygon_endpoint = config('POLYGON_RPC')
-address = config('ADDRESS')
+polygon_endpoint = os.environ.get('POLYGON_RPC')
+address = os.environ.get('ADDRESS')
+private_key = os.environ.get('PRIVATE_KEY')
+contract_address = os.environ.get('CONTRACT_ADDRESS')
+
 address = Web3.to_checksum_address(address)
-private_key = config('PRIVATE_KEY')
 
 w3 = Web3(Web3.HTTPProvider(polygon_endpoint))
-
-contract_address = config('CONTRACT_ADDRESS')
 
 contract_abi = (
     '[{"inputs": [{"components": [{"internalType": "address","name": "considerationToken","type": "address"},{"internalType": "uint256","name": "considerationIdentifier","type": "uint256"},{"internalType": "uint256","name": "considerationAmount","type": "uint256"},{"internalType": "address payable","name": "offerer","type": "address"},{"internalType": "address","name": "zone","type": "address"},{"internalType": "address","name": "offerToken","type": "address"},{"internalType": "uint256","name": "offerIdentifier","type": "uint256"},{"internalType": "uint256","name": "offerAmount","type": "uint256"},{"internalType": "enumBasicOrderType","name": "basicOrderType","type": "uint8"},{"internalType": "uint256","name": "startTime","type": "uint256"},{"internalType": "uint256","name": "endTime","type": "uint256"},{"internalType": "bytes32","name": "zoneHash","type": "bytes32"},{"internalType": "uint256","name": "salt","type": "uint256"},{"internalType": "bytes32","name": "offererConduitKey","type": "bytes32"},{"internalType": "bytes32","name": "fulfillerConduitKey","type": "bytes32"},{"internalType": "uint256","name": "totalOriginalAdditionalRecipients","type": "uint256"},{"components": [{"internalType": "uint256","name": "amount","type": "uint256"},{"internalType": "address payable","name": "recipient","type": "address"}],"internalType": "structAdditionalRecipient[]","name": "additionalRecipients","type": "tuple[]"},{"internalType": "bytes","name": "signature","type": "bytes"}],"internalType": "structBasicOrderParameters","name": "parameters","type": "tuple"}],"name": "fulfillBasicOrder","outputs": [{"internalType": "bool","name": "fulfilled","type": "bool"}],"stateMutability": "payable","type": "function"}]'
