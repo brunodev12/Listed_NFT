@@ -27,7 +27,7 @@ def doubleCheck(_tokenId):
             coin = data['activities'][0]['take']['type']['@type']
             coin_name = 'WETH' if coin=='ERC20' else 'MATIC'
             value = float(data['activities'][0]['take']['value'])
-            if (coin_name=='MATIC' and value<37) or (coin_name=='WETH' and value <0.023):
+            if (coin_name=='MATIC' and value<26) or (coin_name=='WETH' and value <0.015):
                 return True
     return False
 
@@ -43,14 +43,20 @@ for i in unClaimed:
     token = int(i['tokenId'])
     unClaimed_list.append(token)
 
+tokens = []
+
 for i in listed:
     if (i['tokenId'] in unClaimed_list):
         print(i)
-        if doubleCheck(i['tokenId']) or (i['symbol']=='OTHER'):
+        if (doubleCheck(i['tokenId'])) and (i['tokenId'] not in tokens):
             unClaimed_listed.append(i)
+            tokens.append(i['tokenId'])
             
+with open("unClaimed_listed.json", "w") as jsonfile:
+    json.dump(unClaimed_listed, jsonfile)
+
 
 if len(unClaimed_listed)>0:
-    send_email(unClaimed_listed)
+    send_email(unClaimed_listed, 'Unclaimed NFTs found')
     un_claimed_NFTs()
 
