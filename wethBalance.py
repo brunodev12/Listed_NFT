@@ -1,9 +1,9 @@
 from web3 import Web3
-from decouple import config
+import os
 
-polygon_endpoint = config('POLYGON_RPC')
+polygon_endpoint = os.environ.get('POLYGON_RPC')
+contract_address_weth = os.environ.get('WETH_CONTRACT_ADDRESS')
 web3 = Web3(Web3.HTTPProvider(polygon_endpoint))
-contract_address_weth = config('WETH_CONTRACT_ADDRESS')
 
 def get_WETH_balance(address):
     
