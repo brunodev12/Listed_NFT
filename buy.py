@@ -125,17 +125,13 @@ def buyToken(token_id, _nonce):
                     return True
 
 
-if len(unClaimed_listed)>0:
+if (unClaimed_listed):
     if un_claimed_NFTs():
 
         with open("unClaimedNft.json") as jsonfile:
             unClaimed = json.load(jsonfile)
 
-        unClaimed_list = []
-
-        for i in unClaimed:
-            token = int(i['tokenId'])
-            unClaimed_list.append(token)
+        unClaimed_list = {int(i['tokenId']) for i in unClaimed}
 
         nonce = w3.eth.get_transaction_count(address)
         for i in unClaimed_listed:
