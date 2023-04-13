@@ -120,7 +120,7 @@ def buyToken(token_id, _nonce):
 
                     tx_hash = w3.eth.send_raw_transaction(sign_txn.rawTransaction)
 
-                    send_email(f"hash:  {w3.to_hex(tx_hash)}", "Transaction sent")
+                    send_email(f"https://polygonscan.com/tx/{tx_hash}", "Transaction sent")
 
                     return True
 
