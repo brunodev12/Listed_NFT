@@ -6,6 +6,7 @@ from getId import get_id
 from getSignature import get_signature
 from wethBalance import get_WETH_balance
 from mail import send_email
+from unclaimedNFTs import un_claimed_NFTs
 
 polygon_endpoint = os.environ.get('POLYGON_RPC')
 address = os.environ.get('ADDRESS')
@@ -125,18 +126,19 @@ def buyToken(token_id, _nonce):
 
 
 if len(unClaimed_listed)>0:
+    if un_claimed_NFTs():
 
-    with open("unClaimedNft.json") as jsonfile:
-        unClaimed = json.load(jsonfile)
+        with open("unClaimedNft.json") as jsonfile:
+            unClaimed = json.load(jsonfile)
 
-    unClaimed_list = []
+        unClaimed_list = []
 
-    for i in unClaimed:
-        token = int(i['tokenId'])
-        unClaimed_list.append(token)
+        for i in unClaimed:
+            token = int(i['tokenId'])
+            unClaimed_list.append(token)
 
-    nonce = w3.eth.get_transaction_count(address)
-    for i in unClaimed_listed:
-        if (i['tokenId'] in unClaimed_list):
-            success = buyToken(i['tokenId'], nonce)
-            nonce += 1 if success else 0
+        nonce = w3.eth.get_transaction_count(address)
+        for i in unClaimed_listed:
+            if (i['tokenId'] in unClaimed_list):
+                success = buyToken(i['tokenId'], nonce)
+                nonce += 1 if success else 0
