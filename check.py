@@ -41,7 +41,7 @@ tokens = set()
 for i in listed:
     if (i['tokenId'] in unClaimed_list):
         print(i)
-        if doubleCheck(i['tokenId']):
+        if doubleCheck(i['tokenId']) and (i['tokenId'] not in tokens):
             unClaimed_listed.append(i)
             tokens.add(i['tokenId'])
             
