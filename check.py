@@ -2,7 +2,6 @@ import requests
 import json
 import os
 from mail import send_email
-from unclaimedNFTs import un_claimed_NFTs
 
 api_key=os.environ.get('API_KEY')
 collection=os.environ.get('COLLECTION')
@@ -56,5 +55,3 @@ with open("unClaimed_listed.json", "w") as jsonfile:
 
 if len(unClaimed_listed)>0:
     send_email(unClaimed_listed, 'Unclaimed NFTs found')
-    un_claimed_NFTs()
-
