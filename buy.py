@@ -37,7 +37,7 @@ def buyToken(token_id, _nonce):
 
         price = float(data['orders'][0]['makePrice'])
 
-        if (considerationToken==nullAddress and price<26) or (considerationToken!=nullAddress and price <0.015):
+        if (considerationToken==nullAddress and price<18) or (considerationToken!=nullAddress and price <0.01):
             address_balance = w3.eth.get_balance(address) if considerationToken == nullAddress else get_WETH_balance(address)
             if address_balance/(10**18) < price:
                 send_email("Insufficient balance to execute the transaction", "Insufficient balance")
