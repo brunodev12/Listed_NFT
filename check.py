@@ -24,7 +24,7 @@ def doubleCheck(_tokenId):
             coin = data['activities'][0]['take']['type']['@type']
             coin_name = 'WETH' if coin=='ERC20' else 'MATIC'
             value = float(data['activities'][0]['take']['value'])
-            if (coin_name=='MATIC' and value<18) or (coin_name=='WETH' and value <0.01):
+            if (coin_name=='MATIC' and value<9) or (coin_name=='WETH' and value <0.005):
                 return True
     return False
 
